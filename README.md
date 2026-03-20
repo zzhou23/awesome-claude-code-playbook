@@ -8,6 +8,7 @@ A curated collection of practical resources for getting the most out of Claude C
 
 ## Contents
 
+- [Recipes by Role](#recipes-by-role)
 - [CLAUDE.md Templates and Best Practices](#claudemd-templates-and-best-practices)
 - [MCP Servers](#mcp-servers)
 - [Skills and Hooks](#skills-and-hooks)
@@ -16,6 +17,14 @@ A curated collection of practical resources for getting the most out of Claude C
 - [IDE Integrations](#ide-integrations)
 - [Common Issues and Solutions](#common-issues-and-solutions)
 - [Learning Resources](#learning-resources)
+
+## Recipes by Role
+
+Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings, MCP servers, workflows, and prompt templates in one place.
+
+- [Frontend (React / Next.js)](recipes/frontend-react.md) - Component-driven development workflow with TDD, accessibility, and responsive design patterns. **When to use:** You're building UIs with React or Next.js and want a battle-tested Claude Code setup.
+- [Backend API (Python / Node.js / Go)](recipes/backend-api.md) - API development workflow covering schema design, TDD, migrations, and security. **When to use:** You're building REST or GraphQL APIs and want Claude Code configured for backend best practices.
+- [Data Science / ML](recipes/data-science.md) - Data exploration, modeling, and productionization workflow optimized for script-first development. **When to use:** You work with pandas, scikit-learn, or ML pipelines and want Claude Code tuned for data workflows.
 
 ## CLAUDE.md Templates and Best Practices
 
