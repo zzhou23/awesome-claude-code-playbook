@@ -129,6 +129,8 @@ A curated collection of practical resources for getting the most out of Claude C
 
 ## Common Issues and Solutions
 
+<!--lint disable awesome-list-item-->
+
 - **Claude forgets instructions mid-session** — Context window full. Fix: use `/compact` with a summary, or split into smaller sessions.
 - **Claude edits the wrong file** — Ambiguous file names. Fix: be explicit, e.g., "edit `src/auth/login.ts`, not `tests/auth/login.test.ts`."
 - **Permission denied errors** — Sandboxed commands need approval. Fix: add safe commands to `allowedTools` in `.claude/settings.json`.
@@ -139,6 +141,8 @@ A curated collection of practical resources for getting the most out of Claude C
 - **Claude ignores CLAUDE.md rules** — Rules buried in long file. Fix: move critical rules to top; use bold/caps for must-follow rules.
 - **Git hook failures block commits** — Pre-commit hooks too strict. Fix: fix the underlying issue; do not use `--no-verify`.
 - **Claude loops on same error** — Stuck in retry pattern. Fix: interrupt and provide context; try a different approach.
+
+<!--lint enable awesome-list-item-->
 
 ## Learning Resources
 
