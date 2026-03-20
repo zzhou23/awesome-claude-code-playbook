@@ -129,18 +129,16 @@ A curated collection of practical resources for getting the most out of Claude C
 
 ## Common Issues and Solutions
 
-|Symptom|Cause|Fix|
-|---|---|---|
-|Claude forgets instructions mid-session|Context window full|Use `/compact` with a summary, or split into smaller sessions|
-|Claude edits the wrong file|Ambiguous file names|Be explicit: "edit `src/auth/login.ts`, not `tests/auth/login.test.ts`"|
-|Permission denied errors|Sandboxed commands need approval|Add safe commands to `allowedTools` in `.claude/settings.json`|
-|Claude installs wrong package version|No version constraint in instructions|Pin versions in CLAUDE.md: "use React 18.x, not 19"|
-|MCP server fails to connect|Config or path issue|Check `claude mcp list`, verify server command paths are absolute|
-|Claude creates huge files|No file size guidance|Add rule: "files should not exceed 400 lines; split if larger"|
-|Slow responses in large repos|Too much exploration|Add file index to CLAUDE.md; use targeted prompts|
-|Claude ignores CLAUDE.md rules|Rules buried in long file|Move critical rules to top; use bold/caps for must-follow rules|
-|Git hook failures block commits|Pre-commit hooks strict|Fix the underlying issue; do not use `--no-verify`|
-|Claude loops on same error|Stuck in retry pattern|Interrupt and provide context; try a different approach|
+- **Claude forgets instructions mid-session** — Context window full. Fix: use `/compact` with a summary, or split into smaller sessions.
+- **Claude edits the wrong file** — Ambiguous file names. Fix: be explicit, e.g., "edit `src/auth/login.ts`, not `tests/auth/login.test.ts`."
+- **Permission denied errors** — Sandboxed commands need approval. Fix: add safe commands to `allowedTools` in `.claude/settings.json`.
+- **Claude installs wrong package version** — No version constraint in instructions. Fix: pin versions in CLAUDE.md, e.g., "use React 18.x, not 19."
+- **MCP server fails to connect** — Config or path issue. Fix: check `claude mcp list`, verify server command paths are absolute.
+- **Claude creates huge files** — No file size guidance. Fix: add rule "files should not exceed 400 lines; split if larger."
+- **Slow responses in large repos** — Too much exploration. Fix: add file index to CLAUDE.md and use targeted prompts.
+- **Claude ignores CLAUDE.md rules** — Rules buried in long file. Fix: move critical rules to top; use bold/caps for must-follow rules.
+- **Git hook failures block commits** — Pre-commit hooks too strict. Fix: fix the underlying issue; do not use `--no-verify`.
+- **Claude loops on same error** — Stuck in retry pattern. Fix: interrupt and provide context; try a different approach.
 
 ## Learning Resources
 
