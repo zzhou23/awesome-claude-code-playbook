@@ -13,6 +13,7 @@ A curated collection of practical resources for getting the most out of Claude C
 - [MCP Servers](#mcp-servers)
 - [Skills and Hooks](#skills-and-hooks)
 - [Workflow Patterns](#workflow-patterns)
+- [Session Management Patterns](#session-management-patterns)
 - [Tips and Tricks](#tips-and-tricks)
 - [IDE Integrations](#ide-integrations)
 - [Common Issues and Solutions](#common-issues-and-solutions)
@@ -25,6 +26,8 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 - [Frontend (React / Next.js)](recipes/frontend-react.md) - Component-driven development workflow with TDD, accessibility, and responsive design patterns. **When to use:** You're building UIs with React or Next.js and want a battle-tested Claude Code setup.
 - [Backend API (Python / Node.js / Go)](recipes/backend-api.md) - API development workflow covering schema design, TDD, migrations, and security. **When to use:** You're building REST or GraphQL APIs and want Claude Code configured for backend best practices.
 - [Data Science / ML](recipes/data-science.md) - Data exploration, modeling, and productionization workflow optimized for script-first development. **When to use:** You work with pandas, scikit-learn, or ML pipelines and want Claude Code tuned for data workflows.
+- [Multi-Repo Orchestration](recipes/multi-repo.md) - Registry-driven multi-repo management with sync scripts, shared templates, and layered data pipelines. **When to use:** You manage 5+ repositories that share conventions, data flows, or deployment patterns and want Claude to navigate the whole ecosystem.
+- [Windows Development](recipes/windows-dev.md) - Windows-specific configuration covering encoding, line endings, file locking, path handling, and command safety. **When to use:** You develop on Windows and want Claude Code to avoid the silent platform bugs that waste hours of debugging.
 
 ## CLAUDE.md Templates and Best Practices
 
@@ -35,6 +38,12 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 - [Modular Rules Directory](https://docs.anthropic.com/en/docs/claude-code/memory#rules-files) - Split rules into `rules/testing.md`, `rules/git.md`, etc. instead of one giant CLAUDE.md. **When to use:** Your CLAUDE.md exceeds 200 lines and becomes hard to maintain.
 - [Project-Scoped vs User-Scoped Rules](https://docs.anthropic.com/en/docs/claude-code/memory#claudemd) - Use `.claude/CLAUDE.md` for project rules and `~/.claude/CLAUDE.md` for personal preferences. **When to use:** You want personal coding style preferences without polluting the team config.
 - [Conditional Rules Pattern](https://docs.anthropic.com/en/docs/claude-code/memory#memory-files) - Use markdown headings and sections to organize rules by context (e.g., "When writing tests", "When doing refactors"). **When to use:** Different tasks need different rules and you want Claude to pick the right ones.
+
+### Advanced Patterns
+
+- **Forbidden Behaviors Section** - Add a "NEVER do X" section to CLAUDE.md listing explicit anti-patterns (e.g., "NEVER amend previous commits", "NEVER skip pre-commit hooks", "NEVER use `cd` chains in bash commands"). **When to use:** Claude keeps doing something harmful despite positive instructions — negative constraints are stronger anchors than soft guidance.
+- **Platform Constraints Section** - Dedicate a section in CLAUDE.md to OS-specific rules: line endings, path separators, shell differences, encoding defaults, and activation commands. **When to use:** Your team develops on mixed OS environments (Windows/macOS/Linux) or you hit platform-specific bugs repeatedly.
+- **Compact/Compression Directives** - Add priority ordering for what Claude should retain when using `/compact`: architecture decisions > file changes > verification results > TODOs > tool output (pass/fail only). **When to use:** You regularly hit context limits and want `/compact` to preserve the most useful information instead of compressing blindly.
 
 ## MCP Servers
 
@@ -92,6 +101,8 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 - [Post-File-Edit Hook Pattern](https://docs.anthropic.com/en/docs/claude-code/hooks#postedit) - Trigger actions after Claude edits files (e.g., auto-format, type-check). **When to use:** You want immediate feedback when Claude modifies files, without waiting until commit time.
 - [Notification Hook Pattern](https://docs.anthropic.com/en/docs/claude-code/hooks#notification) - Send desktop/Slack notifications when Claude completes long tasks. **When to use:** You're running Claude Code in the background and want to know when it finishes.
 - [Permission Guard Hooks](https://docs.anthropic.com/en/docs/claude-code/hooks#permissions) - Restrict which commands or file paths Claude can access. **When to use:** You need fine-grained security controls beyond the built-in permission system.
+- **Desktop Notification Hook** - Use the Notification hook event to trigger OS-native notifications (Windows toast via PowerShell, macOS via `osascript`, Linux via `notify-send`) when Claude finishes a long-running task. **When to use:** You run Claude Code in the background and want to be alerted immediately when it completes without watching the terminal.
+- **Pre-Commit Lint Enforcement** - Configure a hook to run language-specific linters (ruff for Python, tsc for TypeScript, eslint for JavaScript) before every commit, blocking the commit until the code passes. **When to use:** You want zero tolerance for lint errors in committed code and do not trust manual checks.
 
 ## Workflow Patterns
 
@@ -102,6 +113,19 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 - [Headless Mode for CI/CD](https://docs.anthropic.com/en/docs/claude-code/cli-usage#headless) - Run Claude Code non-interactively with `--print` flag in CI pipelines. **When to use:** Automating code reviews, migrations, or refactors as part of your CI/CD workflow.
 - [Git Worktree Isolation](https://docs.anthropic.com/en/docs/claude-code/sub-agents#worktrees) - Use Git worktrees to give sub-agents isolated copies of the repo. **When to use:** Running multiple agents in parallel that might conflict if editing the same files.
 - [Agentic Loop with Checkpoints](https://docs.anthropic.com/en/docs/claude-code/tutorials#checkpoints) - Break complex tasks into phases with explicit verification between each step. **When to use:** Mission-critical changes where you want to review each step before proceeding.
+- **Research-Plan-TDD-Review-Commit Pipeline** - A sequential five-phase workflow: search for existing solutions, plan the approach, write tests first (red-green-refactor), review the code, then commit. **When to use:** Building new features from scratch where you want maximum quality and a disciplined process that prevents shortcuts.
+- **Specialist Agent Roles Pattern** - Define distinct sub-agent personas (planner, architect, TDD guide, code reviewer, security reviewer, build-error resolver) with clear responsibilities and handoff rules. **When to use:** Complex tasks where different phases benefit from different "mindsets" — planning should not shortcut to implementation.
+- **Auto-Commit Substep Pattern** - Configure Claude to commit after every completed substep (not batch at the end), with progress file updates and pre-commit lint checks baked in. **When to use:** You want granular git history for easy rollback and cannot afford to lose work if a session is interrupted.
+- **Build-Verify-Commit Loop for Web Apps** - After modifying a web application: rebuild the project, restart the dev server, confirm the page loads via health endpoint or browser check, then commit. **When to use:** Web application development where passing tests alone is not enough — you need the actual page to render correctly.
+
+## Session Management Patterns
+
+- **One-Task-Per-Session Discipline** - Limit each Claude Code session to a single, well-scoped task. Start a new session for each distinct piece of work. **When to use:** You notice quality degrading in long sessions, or Claude starts confusing context from earlier tasks.
+- **Session Length Guardrails** - Set a personal rule to start a new session after 15-20 exchanges or after reading very large files. Use `/compact` as a mid-session measure, but prefer a fresh session for major topic changes. **When to use:** Sessions become sluggish, Claude starts hallucinating details from earlier in the conversation, or `/compact` alone is not enough.
+- **Progress File Protocol** - Read `docs/progress.md` at session start, update it after each completed substep, and write the final state before ending. Format: Current Status, Key Decisions, Known Issues, Next Steps. **When to use:** Multi-session projects where you need reliable handoff between sessions without losing decisions or context.
+- **Dev Diary Pattern** - Maintain an append-only session log file with date, session number, and completed items. Append at the end of each work session. Never overwrite previous entries. **When to use:** You work on a project across many days and need a chronological record of what was accomplished and why.
+- **Auto-Memory for Cross-Session Continuity** - Store stable reference information (file paths, architecture decisions, naming conventions, data source locations) in Claude Code's memory files so every session starts with the right context. **When to use:** Your project has metadata that every session needs but would otherwise re-discover through codebase exploration each time.
+- **Compact Priority Instructions** - Add explicit priority ordering to your CLAUDE.md for what Claude should retain when using `/compact`: architecture decisions > file changes > verification results > TODOs > tool output (pass/fail only). **When to use:** Your session is at token limit but you need to continue — guided compact retains more useful context than unguided compression.
 
 ## Tips and Tricks
 
@@ -128,6 +152,8 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 - [Custom Allowed Commands](https://docs.anthropic.com/en/docs/claude-code/settings#allowed-tools) - Pre-approve specific shell commands in settings to avoid permission prompts. **When to use:** You run the same safe commands (test, lint, build) repeatedly and want fewer interruptions.
 - [Environment Variable Injection](https://docs.anthropic.com/en/docs/claude-code/settings#environment) - Pass API keys and config via environment variables for MCP servers. **When to use:** Setting up MCP servers that need authentication tokens.
 - [Shell Profile Integration](https://docs.anthropic.com/en/docs/claude-code/cli-usage#shell-profile) - Ensure your shell profile loads correctly so Claude has access to your tools (nvm, pyenv, etc.). **When to use:** Claude cannot find commands that work in your regular terminal.
+- **Absolute Path Convention** - Always use absolute paths in Claude Code commands instead of `cd X && command` chains, which can trigger safety intercepts on some platforms. **When to use:** Commands fail unexpectedly on Windows or in restricted shell environments, or you see permission errors on simple directory changes.
+- **Explicit UTF-8 Encoding** - Add a rule to CLAUDE.md requiring `encoding="utf-8"` on all file operations and subprocess calls. **When to use:** Developing on Windows where the default encoding is cp1252, causing garbled characters (mojibake) in generated or processed files.
 
 ## IDE Integrations
 
@@ -150,6 +176,9 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 - **Claude ignores CLAUDE.md rules** — Rules buried in long file. Fix: move critical rules to top; use bold/caps for must-follow rules.
 - **Git hook failures block commits** — Pre-commit hooks too strict. Fix: fix the underlying issue; do not use `--no-verify`.
 - **Claude loops on same error** — Stuck in retry pattern. Fix: interrupt and provide context; try a different approach.
+- **Windows line ending corruption** — Files have mixed CRLF/LF after Claude edits. Fix: add `.gitattributes` with `* text=auto`, set `core.autocrlf=true`, and add line ending rules to CLAUDE.md.
+- **Claude uses `cd` chains that fail** — Commands like `cd dir && command 2>/dev/null` trigger safety intercepts on Windows. Fix: use absolute paths in all commands; add "NEVER use cd chains" to CLAUDE.md forbidden behaviors.
+- **Session context degrades after 20+ turns** — Claude confuses earlier context or hallucinates details. Fix: proactively `/compact` or `/clear` and start a new session; use progress file handoff to retain important state.
 
 <!--lint enable awesome-list-item-->
 
