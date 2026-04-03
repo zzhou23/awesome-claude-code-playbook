@@ -38,6 +38,7 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 - [Modular Rules Directory](https://docs.anthropic.com/en/docs/claude-code/memory#rules-files) - Split rules into `rules/testing.md`, `rules/git.md`, etc. instead of one giant CLAUDE.md. **When to use:** Your CLAUDE.md exceeds 200 lines and becomes hard to maintain.
 - [Project-Scoped vs User-Scoped Rules](https://docs.anthropic.com/en/docs/claude-code/memory#claudemd) - Use `.claude/CLAUDE.md` for project rules and `~/.claude/CLAUDE.md` for personal preferences. **When to use:** You want personal coding style preferences without polluting the team config.
 - [Conditional Rules Pattern](https://docs.anthropic.com/en/docs/claude-code/memory#memory-files) - Use markdown headings and sections to organize rules by context (e.g., "When writing tests", "When doing refactors"). **When to use:** Different tasks need different rules and you want Claude to pick the right ones.
+- [Python/Django CLAUDE.md](recipes/python-claude.md) - A comprehensive guide for Django development with Claude. **When to use:** Use this for monolithic or decoupled Django web applications focusing on ORM safety and DRY views.
 
 ### Advanced Patterns
 
