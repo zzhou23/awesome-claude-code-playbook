@@ -94,6 +94,7 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 
 - [Custom Slash Commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands) - Create project-specific or user-specific slash commands in `.claude/commands/`. **When to use:** You have repetitive tasks (deploy, lint, test) that benefit from a single-command shortcut.
 - [Claude Code Skills Marketplace](https://github.com/anthropics/claude-code#skills) - Official skills examples covering TDD, debugging, and planning workflows. **When to use:** You want structured, repeatable workflows rather than ad-hoc prompting.
+- [NotFair](https://github.com/nowork-studio/NotFair) - Open-source Claude Code skills (MIT, ~2.9k stars) for SEO, Google Ads, and Meta Ads, pulling live data via Google Ads MCP, Meta Ads MCP, Google Search Console MCP, and Google Analytics (GA4) MCP. **When to use:** You want Claude to audit ad campaigns, find wasted spend, research keywords, fix meta tags, or generate schema markup without leaving the terminal.
 
 ### Git and Command Hooks
 
