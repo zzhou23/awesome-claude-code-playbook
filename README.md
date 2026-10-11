@@ -194,6 +194,7 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 
 - [Claude Code Best Practices](https://docs.anthropic.com/en/docs/claude-code/best-practices) - Official guide on writing effective CLAUDE.md files and prompts. **When to use:** Optimizing your Claude Code setup after initial experimentation.
 - [Building MCP Servers](https://modelcontextprotocol.io/quickstart) - Step-by-step guide to creating custom MCP servers. **When to use:** You need Claude to interact with an internal tool or API not covered by existing servers.
+- [Universal Modder: Claude Code Setup Guide](https://universalmodder.dev/guides/claude-code/) - Independent, source-reviewed guide to plugin installation, skill discovery, CLI checks, and common setup errors. **When to use:** You are configuring Universal Modder in Claude Code and need to separate agent setup from game and loader compatibility.
 
 ### Community
 
