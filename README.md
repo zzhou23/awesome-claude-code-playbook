@@ -62,9 +62,10 @@ Complete, copy-paste-ready configurations for your role — CLAUDE.md, settings,
 
 ### Browser and Web
 
+- [AeroNotix/mcp-server-playwright](https://github.com/AeroNotix/mcp-server-playwright) - Playwright-based browser automation with multi-browser support. **When to use:** You prefer Playwright over Puppeteer, or need cross-browser testing capabilities.
+- [agent-qa](https://vostride.com) - Provides MCP tools for natural-language web and mobile QA with persistent memidex memory and evidence-based self-improvement. **When to use:** Claude Code needs to verify a user journey after an application change and inspect failure evidence.
 - [modelcontextprotocol/server-fetch](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) - Web content fetching with robots.txt compliance. **When to use:** Claude needs to read documentation, API references, or web content during development.
 - [modelcontextprotocol/server-puppeteer](https://github.com/modelcontextprotocol/servers/tree/main/src/puppeteer) - Browser automation via Puppeteer for testing and scraping. **When to use:** You need Claude to interact with web UIs, take screenshots, or run browser-based tests.
-- [AeroNotix/mcp-server-playwright](https://github.com/AeroNotix/mcp-server-playwright) - Playwright-based browser automation with multi-browser support. **When to use:** You prefer Playwright over Puppeteer, or need cross-browser testing capabilities.
 
 ### DevOps and Infrastructure
 
